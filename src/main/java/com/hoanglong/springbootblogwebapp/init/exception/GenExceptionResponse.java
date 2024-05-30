@@ -1,9 +1,9 @@
 package com.hoanglong.springbootblogwebapp.init.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.time.LocalDate;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenExceptionResponse {

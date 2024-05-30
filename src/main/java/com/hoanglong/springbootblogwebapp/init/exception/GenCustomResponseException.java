@@ -1,6 +1,7 @@
 package com.hoanglong.springbootblogwebapp.init.exception;
 
 import com.hoanglong.springbootblogwebapp.init.controller.RestResponse;
+import com.hoanglong.springbootblogwebapp.init.exception.exceptions.ItemNotFoundException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,18 +13,17 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDate;
 
-@RestController
 @RestControllerAdvice
 public class GenCustomResponseException {
-    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
-    public ResponseEntity<Object> HandlerAllException(Exception ex, WebRequest webRequest){
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<Object> HandlerItemNotFoundException(Exception ex,WebRequest webRequest){
         LocalDate dateError = LocalDate.now();
         String message = ex.getMessage();
         String description = webRequest.getDescription(false);
         GenExceptionResponse genExceptionResponse = new GenExceptionResponse(dateError,message,description);
         RestResponse<GenExceptionResponse> response = RestResponse.error(genExceptionResponse);
         response.setMessage(message);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }
 

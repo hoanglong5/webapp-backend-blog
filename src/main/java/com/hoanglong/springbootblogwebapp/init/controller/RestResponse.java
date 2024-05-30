@@ -17,6 +17,7 @@ public class RestResponse<T> implements Serializable {
     public RestResponse(T data,boolean isSuccess){
         this.data = data;
         this.isSuccess = isSuccess;
+        responseDate = LocalDate.now();
     }
 
     public static <T> RestResponse<T> of(T t){
@@ -25,7 +26,7 @@ public class RestResponse<T> implements Serializable {
     public static <T> RestResponse<T> error(T t){
         return new RestResponse<>(t,false);
     }
-    public static <T> RestResponse<T> empty(T t){
+    public static <T> RestResponse<T> empty(){
         return new RestResponse<>(null,true);
     }
 }
