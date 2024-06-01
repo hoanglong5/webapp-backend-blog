@@ -1,5 +1,7 @@
 package com.hoanglong.springbootblogwebapp.user.entity;
 
+import com.hoanglong.springbootblogwebapp.reaction.entity.Reaction;
+import com.hoanglong.springbootblogwebapp.role.entity.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +13,11 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 @Entity
-@Table(name = "user",schema = "public")
+@Table(name = "users",schema = "public")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,13 +26,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "email",nullable = false)
+    @Column(name = "email")
     private String email;
-    @Column(name = "password",nullable = false)
+    @Column(name = "password")
     private String password;
-    @Column(name = "fullname",nullable = false)
+    @Column(name = "fullname")
     private String fullName;
-    @Column(name = "active",nullable = false,columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = "active",columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean isActive;
     @CreatedDate
     @Column(name = "created_date",updatable = false)
@@ -42,5 +46,9 @@ public class User {
     @LastModifiedBy
     @Column(name = "last_modified_by",updatable = false)
     private UUID modifiedBy;
-
+    @ManyToOne()
+    @JoinColumn(name = "role_id",nullable = false)
+    private Role role;
+    @OneToMany(mappedBy = "user")
+    private Set<Reaction> reactions = new HashSet<>();
 }

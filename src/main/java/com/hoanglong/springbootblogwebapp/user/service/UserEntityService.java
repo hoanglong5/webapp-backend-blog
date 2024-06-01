@@ -3,8 +3,10 @@ package com.hoanglong.springbootblogwebapp.user.service;
 import com.hoanglong.springbootblogwebapp.init.enums.GenErrorMessage;
 import com.hoanglong.springbootblogwebapp.init.exception.exceptions.ItemNotFoundException;
 import com.hoanglong.springbootblogwebapp.init.service.BaseEntityService;
+import com.hoanglong.springbootblogwebapp.role.service.RoleEntityService;
 import com.hoanglong.springbootblogwebapp.user.entity.User;
 import com.hoanglong.springbootblogwebapp.user.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

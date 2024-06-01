@@ -1,5 +1,6 @@
 package com.hoanglong.springbootblogwebapp.post.entity;
 
+import com.hoanglong.springbootblogwebapp.reaction.entity.Reaction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +29,8 @@ public class Post {
     private String title;
     @Column(name = "content",nullable = false)
     private String content;
+    @ElementCollection
+    private Set<String> tags = new HashSet<>();
     @Column(name = "created_date",updatable = false)
     private LocalDate createdDate;
     @CreatedBy
@@ -37,4 +42,6 @@ public class Post {
     @LastModifiedBy
     @Column(name = "last_modified_by",updatable = false)
     private UUID modifiedBy;
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
+    private Set<Reaction> reactions = new HashSet<>();
 }

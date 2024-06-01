@@ -2,8 +2,10 @@ package com.hoanglong.springbootblogwebapp.role.controller;
 
 import com.hoanglong.springbootblogwebapp.init.controller.RestResponse;
 import com.hoanglong.springbootblogwebapp.init.enums.MessageResponse;
+import com.hoanglong.springbootblogwebapp.role.dto.RoleDto;
 import com.hoanglong.springbootblogwebapp.role.entity.Role;
 import com.hoanglong.springbootblogwebapp.role.service.RoleEntityService;
+import com.hoanglong.springbootblogwebapp.role.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +18,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleEntityService roleEntityService;
+    private final RoleService roleService;
     @GetMapping
-    public ResponseEntity<RestResponse<List<Role>>> GetAllRole(){
-        RestResponse<List<Role>> response = RestResponse.of(roleEntityService.FindAllRole());
+    public ResponseEntity<RestResponse<List<RoleDto>>> GetAllRole(){
+        RestResponse<List<RoleDto>> response = RestResponse.of(roleService.FindAllRole());
         response.setMessage("List role");
         return ResponseEntity.ok(response);
     }
     @GetMapping("/{uuid}")
-    public ResponseEntity<RestResponse<?>> FindRoleById(@PathVariable UUID uuid){
-        roleEntityService.FindRoleById(uuid);
-        RestResponse<?> response = RestResponse.empty();
+    public ResponseEntity<RestResponse<RoleDto>> FindRoleById(@PathVariable UUID uuid){
+        RestResponse<RoleDto> response = RestResponse.of(roleService.FindRoleByID(uuid));
         response.setMessage(MessageResponse.SUCCESSFULLY_FINDBYID.getMessage());
         return ResponseEntity.ok(response);
     }

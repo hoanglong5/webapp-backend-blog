@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: 'ubuntu/postgres'
+    environment:
+      - 'POSTGRES_DB=postgres 2'
+      - 'POSTGRES_PASSWORD=s3cretpass'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '8181:5432'
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL : jdbc:postgresql://localhost:8181/postgres
+      SPRING_DATASOURCE_USERNAME : postgres
+      SPRING_DATASOURCE_PASSWORD : s3cretpass
+    depends_on:
+      - postgres

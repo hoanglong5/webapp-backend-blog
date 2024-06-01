@@ -1,9 +1,0 @@
-services:
-  postgres:
-    image: 'ubuntu/postgres:latest'
-    environment:
-      - 'POSTGRES_DB=postgres 2'
-      - 'POSTGRES_PASSWORD=s3cretpass'
-      - 'POSTGRES_USER=postgres'
-    ports:
-      - '8181'
