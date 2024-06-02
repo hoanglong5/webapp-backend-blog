@@ -8,12 +8,14 @@ import com.hoanglong.springbootblogwebapp.user.entity.User;
 import com.hoanglong.springbootblogwebapp.user.service.UserEntityService;
 import com.hoanglong.springbootblogwebapp.user.service.UserService;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/${application.version}/user")
@@ -21,9 +23,15 @@ import java.util.UUID;
 public class UserController {
     private final UserEntityService userEntityService;
     private final UserService userService;
+//    @GetMapping()
+//    public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
+//        RestResponse<List<UserDto>> response = RestResponse.of(userService.FindAllUser());
+//        response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
+//        return ResponseEntity.ok(response);
+//    }
     @GetMapping()
-    public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
-        RestResponse<List<UserDto>> response = RestResponse.of(userService.FindAllUser());
+    public ResponseEntity<RestResponse<List<User>>> FindAllUser(){
+        RestResponse<List<User>> response = RestResponse.of(userEntityService.FindAll());
         response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
         return ResponseEntity.ok(response);
     }

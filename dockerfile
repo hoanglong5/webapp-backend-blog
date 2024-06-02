@@ -2,16 +2,17 @@ FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
 # Install Maven
-RUN apt-get update && \
-    apt-get install -y maven && \
-    apt-get clean && \
-    mvn --version
-
+# RUN apt-get update && \
+#     apt-get install -y maven && \
+#     apt-get clean && \
+#     mvn --version
 # Copy Maven files separately to leverage Docker cache
+
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
 COPY src ./src
 
-# Build the application
 RUN mvn clean package -DskipTests
 
 # Run stage

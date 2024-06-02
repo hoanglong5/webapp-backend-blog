@@ -4,7 +4,6 @@ import com.hoanglong.springbootblogwebapp.user.dto.UserDto;
 import com.hoanglong.springbootblogwebapp.user.dto.UserSaveDto;
 import com.hoanglong.springbootblogwebapp.user.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -13,9 +12,9 @@ import java.util.List;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
     //UserDto
-    UserDto UsertoUserDto(User user);
-    List<UserDto> ListUserToListUserDto(List<User> users);
+    UserDto usertoUserDto(User user);
+    List<UserDto> listUserToListUserDto(List<User> users);
     //UpdateDto
     //SaveDto
-    UserSaveDto UserToUserSaveDto (User user);
+    UserSaveDto userToUserSaveDto(User user);
 }
