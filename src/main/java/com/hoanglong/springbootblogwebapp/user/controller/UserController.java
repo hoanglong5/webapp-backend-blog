@@ -23,18 +23,18 @@ import java.util.logging.Logger;
 public class UserController {
     private final UserEntityService userEntityService;
     private final UserService userService;
-//    @GetMapping()
-//    public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
-//        RestResponse<List<UserDto>> response = RestResponse.of(userService.FindAllUser());
-//        response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
-//        return ResponseEntity.ok(response);
-//    }
     @GetMapping()
-    public ResponseEntity<RestResponse<List<User>>> FindAllUser(){
-        RestResponse<List<User>> response = RestResponse.of(userEntityService.FindAll());
+    public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
+        RestResponse<List<UserDto>> response = RestResponse.of(userService.FindAllUser());
         response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
         return ResponseEntity.ok(response);
     }
+//    @GetMapping()
+//    public ResponseEntity<RestResponse<List<User>>> FindAllUser(){
+//        RestResponse<List<User>> response = RestResponse.of(userEntityService.FindAll());
+//        response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
+//        return ResponseEntity.ok(response);
+//    }
     @GetMapping("/{uuid}")
     public ResponseEntity<RestResponse<User>> FindUserById(@PathVariable UUID uuid){
         RestResponse<User> response = RestResponse.of(userEntityService.FindUserByID(uuid));

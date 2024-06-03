@@ -18,8 +18,8 @@ import java.util.Set;
 import java.util.UUID;
 @Entity
 @Table(name = "users",schema = "public")
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {

@@ -7,8 +7,9 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-
-@Mapper
+@Mapper()
+//componentModel = "spring",
+//unmappedTargetPolicy = ReportingPolicy.IGNORE
 public interface RoleMapper {
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
     RoleDto roleToRoleDto(Role role);
