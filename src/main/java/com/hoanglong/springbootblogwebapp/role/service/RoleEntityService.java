@@ -13,22 +13,12 @@ public class RoleEntityService extends BaseEntityService<Role, RoleRepository> {
     public RoleEntityService(RoleRepository dao) {
         super(dao);
     }
-    public List<Role> FindAllRole(){
-        return getDao().findAll();
-    }
-    public Role FindRoleById(UUID uuid){
-        Role role = FindById(uuid);
-        return role;
-    }
-    public void DeleteRole(UUID id){
+    public void Delete(UUID id){
         Role role = FindById(id);
         getDao().delete(role);;
     }
-    public void SaveRole(Role role){
-        getDao().save(role);
-    }
-    public void UpdateRole(UUID id,Role role){
-        Role roleToUpdate = FindRoleById(id);
+    public void Update(UUID id, Role role){
+        Role roleToUpdate = FindById(id);
         roleToUpdate.setDescription(role.getDescription());
         roleToUpdate.setName(role.getName());
         getDao().save(roleToUpdate);

@@ -14,13 +14,25 @@ import java.util.UUID;
 public class RoleService {
     private final RoleEntityService roleEntityService;
     public List<RoleDto> FindAllRole(){
-        List<Role> role = roleEntityService.FindAllRole();
+        List<Role> role = roleEntityService.FindAll();
         List<RoleDto> roleDtos = RoleMapper.INSTANCE.listRoleToListRoleDto(role);
         return roleDtos;
     }
     public RoleDto FindRoleByID(UUID uuid){
-        Role role = roleEntityService.FindRoleById(uuid);
+        Role role = roleEntityService.FindById(uuid);
         RoleDto roleDto = RoleMapper.INSTANCE.roleToRoleDto(role);
         return roleDto;
+    }
+    public UUID SaveNewRole(Role role){
+        roleEntityService.Save(role);
+        return role.getId();
+    }
+    public UUID DeleteRole(UUID uuid){
+        roleEntityService.Delete(uuid);
+        return uuid;
+    }
+    public UUID UpdateNewRole(Role role,UUID uuid){
+        roleEntityService.Update(uuid,role);
+        return uuid;
     }
 }

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.UUID;
 

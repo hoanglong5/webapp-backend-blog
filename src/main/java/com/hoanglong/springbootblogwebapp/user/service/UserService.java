@@ -19,13 +19,27 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-    private final UserEntityService userEntityService;
     private final RoleEntityService roleEntityService;
+    private final UserEntityService userEntityService;
+
     public List<UserDto> FindAllUser(){
         List<User> users = userEntityService.FindAll();
         List<UserDto> userDtos = UserMapper.INSTANCE.listUserToListUserDto(users);
         LOGGER.info("fetched users: {}",users);
         return userDtos;
+    }
+    public UserDto FindUserById(UUID uuid){
+        User user = userEntityService.FindById(uuid);
+        UserDto userDto = UserMapper.INSTANCE.usertoUserDto(user);
+        return userDto;
+    }
+    public UUID DeleteUser(UUID uuid){
+        userEntityService.DeleteUser(uuid);
+        return uuid;
+    }
+    public UUID UpdateUser(UUID uuid,User userUpdate){
+        userEntityService.UpdateUser(uuid,userUpdate);
+        return uuid;
     }
     public UUID CreateNewUser(UserSaveDto userSaveDto){
         User userInfo = new User();
@@ -39,7 +53,7 @@ public class UserService {
         userInfo.setModifiedBy(null);
         Role role = roleEntityService.FindById(userSaveDto.getRoleId());
         userInfo.setRole(role);
-        userEntityService.SaveUser(userInfo);
+        userEntityService.Save(userInfo);
         return userInfo.getId();
     }
 }

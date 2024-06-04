@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 @RequestMapping("/api/${application.version}/user")
 @AllArgsConstructor
 public class UserController {
-    private final UserEntityService userEntityService;
     private final UserService userService;
     @GetMapping()
     public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
@@ -29,22 +28,15 @@ public class UserController {
         response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
         return ResponseEntity.ok(response);
     }
-//    @GetMapping()
-//    public ResponseEntity<RestResponse<List<User>>> FindAllUser(){
-//        RestResponse<List<User>> response = RestResponse.of(userEntityService.FindAll());
-//        response.setMessage(MessageResponse.SUCCESSFULLY_FINDALL.getMessage());
-//        return ResponseEntity.ok(response);
-//    }
     @GetMapping("/{uuid}")
-    public ResponseEntity<RestResponse<User>> FindUserById(@PathVariable UUID uuid){
-        RestResponse<User> response = RestResponse.of(userEntityService.FindUserByID(uuid));
+    public ResponseEntity<RestResponse<UserDto>> FindUserById(@PathVariable UUID uuid){
+        RestResponse<UserDto> response = RestResponse.of(userService.FindUserById(uuid));
         response.setMessage(MessageResponse.SUCCESSFULLY_FINDBYID.getMessage());
         return ResponseEntity.ok(response);
     }
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<RestResponse<?>> DeleteUser(@PathVariable UUID uuid){
-        userEntityService.DeleteUser(uuid);
-        RestResponse<?> response = RestResponse.empty();
+    public ResponseEntity<RestResponse<UUID>> DeleteUser(@PathVariable UUID uuid){
+        RestResponse<UUID> response = RestResponse.of(userService.DeleteUser(uuid));
         response.setMessage(MessageResponse.SUCCESSFULLY_DELETE.getMessage());
         return ResponseEntity.ok(response);
     }
@@ -55,9 +47,8 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
     @PutMapping("/{uuid}")
-    public ResponseEntity<RestResponse<?>> UpdateUser(@PathVariable UUID uuid,@RequestBody User user){
-        userEntityService.UpdateUser(uuid,user);
-        RestResponse<?> response = RestResponse.empty();
+    public ResponseEntity<RestResponse<UUID>> UpdateUser(@PathVariable UUID uuid,@RequestBody User user){
+        RestResponse<UUID> response = RestResponse.of(userService.UpdateUser(uuid,user));
         response.setMessage(MessageResponse.SUCCESSFULLY_UPDATED.getMessage());
         return ResponseEntity.ok(response);
     }
