@@ -6,7 +6,9 @@ import com.hoanglong.springbootblogwebapp.role.dto.RoleDto;
 import com.hoanglong.springbootblogwebapp.role.entity.Role;
 import com.hoanglong.springbootblogwebapp.role.service.RoleEntityService;
 import com.hoanglong.springbootblogwebapp.role.service.RoleService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/${application.version}/role")
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RoleController {
-    private final RoleService roleService;
+    RoleService roleService;
     @GetMapping
     public ResponseEntity<RestResponse<List<RoleDto>>> GetAllRole(){
         RestResponse<List<RoleDto>> response = RestResponse.of(roleService.FindAllRole());

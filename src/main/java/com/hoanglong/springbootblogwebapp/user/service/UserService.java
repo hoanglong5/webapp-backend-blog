@@ -9,6 +9,8 @@ import com.hoanglong.springbootblogwebapp.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,6 +35,10 @@ public class UserService {
         UserDto userDto = UserMapper.INSTANCE.usertoUserDto(user);
         return userDto;
     }
+    public User FindUserByUserName(String username){
+        User user = userEntityService.FindByUserName(username);
+        return user;
+    }
     public UUID DeleteUser(UUID uuid){
         userEntityService.DeleteUser(uuid);
         return uuid;
@@ -42,9 +48,10 @@ public class UserService {
         return uuid;
     }
     public UUID CreateNewUser(UserSaveDto userSaveDto){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         User userInfo = new User();
         userInfo.setEmail(userSaveDto.getEmail());
-        userInfo.setPassword(userSaveDto.getPassword());
+        userInfo.setPassword(passwordEncoder.encode(userSaveDto.getPassword()));
         userInfo.setFullName(userSaveDto.getFullName());
         userInfo.setActive(userSaveDto.isActive());
         userInfo.setCreatedDate(LocalDate.now());

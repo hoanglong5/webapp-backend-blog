@@ -7,7 +7,9 @@ import com.hoanglong.springbootblogwebapp.user.dto.UserSaveDto;
 import com.hoanglong.springbootblogwebapp.user.entity.User;
 import com.hoanglong.springbootblogwebapp.user.service.UserEntityService;
 import com.hoanglong.springbootblogwebapp.user.service.UserService;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,9 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/${application.version}/user")
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    private final UserService userService;
+    UserService userService;
     @GetMapping()
     public ResponseEntity<RestResponse<List<UserDto>>> FindAllUser(){
         RestResponse<List<UserDto>> response = RestResponse.of(userService.FindAllUser());

@@ -1,13 +1,13 @@
 package com.hoanglong.springbootblogwebapp.role.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Data
 public class RoleDto {
     private String name;
     private String description;

@@ -5,7 +5,9 @@ import com.hoanglong.springbootblogwebapp.init.enums.MessageResponse;
 import com.hoanglong.springbootblogwebapp.post.dto.PostDto;
 import com.hoanglong.springbootblogwebapp.post.entity.Post;
 import com.hoanglong.springbootblogwebapp.post.service.PostService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/${application.version}/post")
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PostController {
-    private final PostService postService;
+    PostService postService;
     @GetMapping
     public ResponseEntity<RestResponse<List<PostDto>>> GetAllPost(){
         RestResponse<List<PostDto>> response = RestResponse.of(postService.FindAllPost());
